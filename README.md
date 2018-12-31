@@ -1,5 +1,18 @@
 # giphyHW
 
+## Version 1.02
+
+Added some of the functionality
+- Added output to page through card divs;
+- made responsive through bootstrap
+- Made img src the fixed_height_still
+
+### Still to do:
+
+- Need to be able to click on img and change img src to gif url
+- Make it not look like I put 5 mins of effort into it
+- Add download gif button to each div
+
 ## Version 1.01
 
 Added all needed to version 1.00
