@@ -1,3 +1,16 @@
 .outputCard{
     display: inline-block;
+    padding: 3px;
+    margin: 10px 0px;
+}
+
+.card img{
+    display: block;
+    margin: auto;
+}
+
+.card .downBtn{
+    display: block;
+    width: 200px;
+    margin: 0 auto 5px auto;
 }

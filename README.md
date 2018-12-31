@@ -1,5 +1,19 @@
 # giphyHW
 
+## Version 1.03
+
+On this update
+- Added click to go from still to gif and back
+- made the gifs more resposive through class naming with col-yada yada
+- Placed button to add the download url, still working on that
+
+### Still to do
+
+- Make it like nicer
+- finish the data adding with the download buttons
+- add ability to check if same button was pressed again
+- clear html in outputArea if not 
+
 ## Version 1.02
 
 Added some of the functionality
