@@ -1,5 +1,18 @@
 # giphyHW
 
+## Version 1.04
+
+Previously, in giphy hw...
+- ditched the cards holding the gifs
+- fixed mobile responsiveness
+- added basic styline
+
+### Still to come:
+- need to use string to grab button names and data
+- figure out which image key is for download
+- have favorite section which will carry over into local storage
+- add rating to gif box
+
 ## Version 1.03
 
 On this update

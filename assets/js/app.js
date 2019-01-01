@@ -1,3 +1,5 @@
+var lastButton;
+
 $(".submitBtn").on("click", function (event) {
     event.preventDefault();
     var search = $("#wordSearch").val().trim();
@@ -14,26 +16,31 @@ $(".submitBtn").on("click", function (event) {
 });
 
 $(".buttonArea").on("click", ".gifName", function () {
-    var search = $(this).attr("data-name");
-    console.log("this is the name of the btn " + search);
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=d7kvX0voWdIu8foSOpdhIvesiVLi8dsN&q=" + search + "&limit=12";
+    var searchTerm = $(this).attr("data-name");
+    console.log("this is the name of the btn " + searchTerm);
+
+    // Add to see if same button was pressed here
+    // if else with else being what is below...i think
+
+    $(".outputArea").html("");
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=d7kvX0voWdIu8foSOpdhIvesiVLi8dsN&q=" + searchTerm + "&limit=10";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        
         for (var i = 0; i < response.data.length; i++) {
-            // var newGif = $("<div>").attr("class", "card outputCard").css({ "width": response.data[i].images.fixed_height.width });
-            // var gifImg = $("<img>").attr("src", response.data[i].images.fixed_height_still.url);
-            var newGif = $("<div>").attr("class", "col-lg-3 col-md-6 col-sm-12 card outputCard");
+            var newGif = $("<div>").attr("class", "col-lg-2 col-md-3 col-sm-4 col-6 outputCard");
             var gifImg = $("<img>").attr("class", "gifPic")
                 .attr("src", response.data[i].images.fixed_width_still.url)
                 .prop("data-flipped", false)
                 .attr("data-still", response.data[i].images.fixed_width_still.url)
                 .attr("data-gif", response.data[i].images.fixed_width.url);
-            var downBtn = $("<button>").attr("class", "btn btn-danger downBtn").text("Download");
-            newGif.append(downBtn);
+            var downBtn = $("<button>").attr("class", "btn btn-success downBtn").text("Download");
             newGif.append(gifImg);
+            newGif.append(downBtn);
             $(".outputArea").append(newGif);
         }
 

@@ -1,16 +1,58 @@
+body{
+    color: white;
+    background-color: #222;
+}
+
+.inputSection form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputSection label{
+    margin-bottom: 0;
+}
+
+.inputSection input{
+    margin: 0 5px;
+    text-align: center;
+}
+
+.submitBtn{
+    padding: 2px 12px;
+}
+
+.gifName{
+    margin: 3px;
+}
+
 .outputCard{
     display: inline-block;
     padding: 3px;
     margin: 10px 0px;
 }
 
-.card img{
+.outputCard img{
     display: block;
     margin: auto;
+    height: 150px;
+    width: 150px;
 }
 
-.card .downBtn{
+.downBtn{
     display: block;
-    width: 200px;
-    margin: 0 auto 5px auto;
+    width: 150px;
+    margin: 5px auto;
+}
+
+@media (max-width: 550px) {
+    .inputSection form{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .submitBtn{
+        margin: 5px 0;
+    }
+
 }
