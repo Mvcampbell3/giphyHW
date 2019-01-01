@@ -3,7 +3,7 @@
 ## Version 2.00
 
 Added Features:
-- Made original buttons load from string instead of HTML
+- Made original buttons load from array instead of HTML
 - If button pressed more than once, gifs prepended to window, doesn't erase html
 
 ### In the Works:
