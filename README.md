@@ -1,11 +1,22 @@
 # giphyHW
 
+## Version 2.00
+
+Added Features:
+- Made original buttons load from string instead of HTML
+- If button pressed more than once, gifs prepended to window, doesn't erase html
+
+### In the Works:
+- Access local storage through JSON
+- Ability to save certain buttons to original button string
+- download button that actually downloads
+
 ## Version 1.04
 
 Previously, in giphy hw...
 - ditched the cards holding the gifs
 - fixed mobile responsiveness
-- added basic styline
+- added basic styling
 
 ### Still to come:
 - need to use string to grab button names and data
