@@ -35,14 +35,20 @@ body{
 .outputCard img{
     display: block;
     margin: auto;
-    height: 150px;
-    width: 150px;
+    height: 225px;
+    width: 225px;
 }
 
 .downBtn{
-    display: block;
-    width: 150px;
-    margin: 5px auto;
+    width: 100px;
+}
+
+.infoBox{
+    display: flex;
+    justify-content: space-evenly;
+    width: 225px;
+    margin: 3px auto 0 auto;
+
 }
 
 @media (max-width: 550px) {

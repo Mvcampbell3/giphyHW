@@ -1,8 +1,20 @@
 # giphyHW
 
+## Version 2.01
+
+### Added:
+- Ratings Button, may change to a badge, need to play with padding
+- Changed the source url to original and original_still
+- Made output Gifs larger
+
+### Tune in next time for
+- Add Title Box into infoBox
+- Finally make download button work
+- Make it look pretty
+
 ## Version 2.00
 
-Added Features:
+### Added Features:
 - Made original buttons load from array instead of HTML
 - If button pressed more than once, gifs prepended to window, doesn't erase html
 
@@ -13,7 +25,7 @@ Added Features:
 
 ## Version 1.04
 
-Previously, in giphy hw...
+### Previously, in giphy hw...
 - ditched the cards holding the gifs
 - fixed mobile responsiveness
 - added basic styling
@@ -26,7 +38,7 @@ Previously, in giphy hw...
 
 ## Version 1.03
 
-On this update
+### On this update
 - Added click to go from still to gif and back
 - made the gifs more resposive through class naming with col-yada yada
 - Placed button to add the download url, still working on that
@@ -40,7 +52,7 @@ On this update
 
 ## Version 1.02
 
-Added some of the functionality
+### This Push:
 - Added output to page through card divs;
 - made responsive through bootstrap
 - Made img src the fixed_height_still
@@ -53,7 +65,8 @@ Added some of the functionality
 
 ## Version 1.01
 
-Added all needed to version 1.00
+### Added all needed to version 1.00
+- Pretty basic functionality
 
 ### What needs to be added next
 
@@ -66,7 +79,7 @@ Added all needed to version 1.00
 
 ## Version 1.00
 
-Things to add:
+### Things to add:
 - Ability to generate buttons to page from input val
 - Output area for the buttons
 - ajax call for the value of the buttons with giphy api    
