@@ -1,5 +1,20 @@
 # giphyHW
 
+## Version 2.005
+ 
+Yes we went backwards a little bit
+
+### In transistion
+- Trying to implement local storage
+- Changed the way the buttons are loaded to the screen
+
+### Needed:
+- Have different classes for buttons based on if saved to local storage or not?
+- Instead of just appending to html, push to showButtons then append that to html?
+- Delete button that works on screen and local storage
+- Save button that adds button text to the buttons JSON file
+- Brain
+
 ## Version 2.01
 
 ### Added:

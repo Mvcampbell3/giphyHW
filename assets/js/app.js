@@ -2,36 +2,57 @@ var lastButton;
 var searchTerm = "not used yet";
 var timesPressed = 0;
 
-var allButtons = ["baseball", "buffalo wings", "guitar", "sherlock"];
+var myButtons = [
+    {name: "bisping"},
+    {name: "baseball"},
+    {name: "cars"},
+    {name: "buffalo wings"},
+];
 
-function displayButtons(){
-    $(".buttonArea").html("");
-    for (var i = 0; i < allButtons.length; i++) {
-        var newBtn = $("<button>").attr("class", "btn btn-primary gifName")
-            .attr("data-name", allButtons[i])
-            .text(allButtons[i]);
-        $(".buttonArea").append(newBtn);
+var showButtons = [];
+
+function getButtons() {
+    if (JSON.parse(localStorage.getItem("buttons")) === null) {
+
+        var saveButtons = myButtons;
+        
+        localStorage.setItem("buttons", JSON.stringify(saveButtons));
+
+        storageButtons();
+
+    } else {
+        console.log("aleady have some buttons");
+
+        storageButtons();
+
     }
 }
 
-$(".submitBtn").on("click", function (event) {
+function storageButtons() {
+    $(".buttonArea").html("");
+    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
+
+    for (var i = 0; i < saveButtons.length; i++) {
+        var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(saveButtons[i].name);
+        $(".buttonArea").append(newBtn);
+        // forgot why I pushed here but I am keeping it for now
+        showButtons.push(saveButtons[i].name);
+    }
+}
+
+$(".submitBtn").on("click", function(event){
     event.preventDefault();
     var search = $("#wordSearch").val().trim();
-    console.log(search);
-    if (search === "") {
-        alert("Please enter something into the search bar");
-        return;
-    } else {
-        console.log("working");
-        allButtons.push(search);
-        displayButtons();
-        $("#wordSearch").val("");
-    }
+    var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(search);
+    $(".buttonArea").append(newBtn);
+    // forgot why I pushed here but I am keeping it for now
+    showButtons.push(search);
+    $("#wordSearch").val("");
 });
 
 $(".buttonArea").on("click", ".gifName", function () {
     lastButton = searchTerm;
-    searchTerm = $(this).attr("data-name");
+    searchTerm = $(this).text();
     console.log("this is the name of the old btn " + lastButton)
     console.log("this is the name of the new btn " + searchTerm);
 

@@ -3,6 +3,21 @@ body{
     background-color: #222;
 }
 
+header{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: auto;
+}
+
+.saveBtn{
+    display: none;
+}
+
+.deleteBtn{
+    display: none;
+}
+
 .inputSection form{
     display: flex;
     align-items: center;
