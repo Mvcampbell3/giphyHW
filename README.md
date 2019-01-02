@@ -1,5 +1,18 @@
 # giphyHW
 
+## Version 27.304
+
+### Changes:
+- Swiched around html for better layout, may revist
+- commented the js file
+- you can't add buttons already there
+- inputs are toUpperCase
+
+### Still to come:
+- Download download dowanmcndnaohaosdchalabutton
+- decide what to do about button classes, new layout eases the need
+- add title to gifs? Might makes them too big. Maybe a small title
+
 ## Version 2.02
 
 ### Back on Track:

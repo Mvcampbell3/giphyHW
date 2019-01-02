@@ -3,20 +3,29 @@ body{
     background-color: #222;
 }
 
-header{
+.mainTitle{
+    width: 100%;
+    text-align: center;
+}
+
+.padding-top{
+    padding-top: 10px;
+}
+
+.saveArea{
+    width: 100%;
     display: flex;
-    align-items: center;
-    width: fit-content;
-    margin: auto;
+    justify-content: center;
 }
 
 .saveBtn{
     display: none;
+    margin-right: 3px;
 }
 
-/* .deleteBtn{
+.deleteBtn{
     display: none;
-} */
+}
 
 .inputSection form{
     display: flex;
@@ -35,6 +44,12 @@ header{
 
 .submitBtn{
     padding: 2px 12px;
+}
+
+.buttonArea{
+    width: fit-content;
+    max-width: 100%;
+    margin: 10px auto;
 }
 
 .gifName{
@@ -60,7 +75,7 @@ header{
 
 .infoBox{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 225px;
     margin: 3px auto 0 auto;
 
