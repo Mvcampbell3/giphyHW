@@ -12,49 +12,101 @@ var myButtons = [
 var showButtons = [];
 
 function getButtons() {
-    if (JSON.parse(localStorage.getItem("buttons")) === null) {
-
-        var saveButtons = myButtons;
-        
-        localStorage.setItem("buttons", JSON.stringify(saveButtons));
-
-        storageButtons();
-
+    if (JSON.parse(localStorage.getItem("buttons")) === null || JSON.parse(localStorage.getItem("buttons")).length < 1) {
+        // May want to get rid of the or check, if they don't want my buttons then so be it.
+        showButtons = myButtons;
+        localStorage.setItem("buttons", JSON.stringify(showButtons));
+        displayButtons();
     } else {
         console.log("aleady have some buttons");
-
-        storageButtons();
-
+        showButtons = JSON.parse(localStorage.getItem("buttons"));
+        displayButtons();
     }
 }
 
-function storageButtons() {
+function displayButtons() {
     $(".buttonArea").html("");
-    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
-
-    for (var i = 0; i < saveButtons.length; i++) {
-        var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(saveButtons[i].name);
+    for (var i = 0; i < showButtons.length; i++) {
+        var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
         $(".buttonArea").append(newBtn);
-        // forgot why I pushed here but I am keeping it for now
-        showButtons.push(saveButtons[i].name);
     }
 }
 
 $(".submitBtn").on("click", function(event){
     event.preventDefault();
-    var search = $("#wordSearch").val().trim();
-    var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(search);
-    $(".buttonArea").append(newBtn);
-    // forgot why I pushed here but I am keeping it for now
-    showButtons.push(search);
+    var newItem = {
+        name: $("#wordSearch").val().trim(),
+    };
+    showButtons.push(newItem);
+    displayButtons();
     $("#wordSearch").val("");
 });
+
+$(".deleteBtn").on("click", function(){
+    for(var i = 0; i < showButtons.length; i++) {
+        if (searchTerm === showButtons[i].name) {
+            console.log(i + " index at want to delete");
+            showButtons.splice(i, 1);
+        }
+    }
+    displayButtons();
+    $(".saveBtn").hide();
+    checkSavedDelete();
+    $(".outputArea").html("");
+});
+
+function checkSavedDelete(){
+    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
+    console.log(saveButtons);
+    for(var i = 0; i < saveButtons.length; i++) {
+        if (searchTerm === saveButtons[i].name) {
+            console.log(i + " index at want to delete");
+            saveButtons.splice(i, 1);
+        }
+    };
+    localStorage.setItem("buttons", JSON.stringify(saveButtons));
+}
+
+$(".saveBtn").on("click", function(){
+    var newItem = {
+        name: searchTerm,
+    }
+    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
+    var names = [];
+    for (var i = 0; i < saveButtons.length; i ++) {
+        names.push(saveButtons[i].name);
+    }
+    if (names.indexOf(searchTerm) === -1) {
+        saveButtons.push(newItem);
+    } else {
+        console.log("already saved");
+    }
+    localStorage.setItem("buttons", JSON.stringify(saveButtons));
+    $(".saveBtn").hide();
+})
+
+function whichButton() {
+    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
+    var names = [];
+    for (var i = 0; i < saveButtons.length; i ++) {
+        names.push(saveButtons[i].name);
+    }
+    if (names.indexOf(searchTerm) === -1) {
+        $(".saveBtn").show();
+        
+    } else {
+        console.log("already saved");
+        $(".saveBtn").hide();
+    }
+    localStorage.setItem("buttons", JSON.stringify(saveButtons));
+}
 
 $(".buttonArea").on("click", ".gifName", function () {
     lastButton = searchTerm;
     searchTerm = $(this).text();
     console.log("this is the name of the old btn " + lastButton)
     console.log("this is the name of the new btn " + searchTerm);
+    whichButton();
 
     if (lastButton === searchTerm) {
         timesPressed++;
@@ -87,8 +139,6 @@ function ajaxCall(){
             var rating = $("<button>").attr("class", "btn btn-light").text("Rating: " + response.data[i].rating);
             var downBtn = $("<button>").attr("class", "btn btn-success downBtn").text("Download");
             newGif.append(gifImg);
-            // newGif.append(downBtn);
-            // newGif.append(rating);
             infoBox.append(rating).append(downBtn);
             newGif.append(infoBox);
             $(".outputArea").prepend(newGif);

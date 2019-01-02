@@ -1,5 +1,18 @@
 # giphyHW
 
+## Version 2.02
+
+### Back on Track:
+- local storage works well
+- save and delete buttons work well
+
+### Still Need:
+- Need to find a way to set class names differently based on saved to local storage or not
+- Download Button? Is this going to happen? Maybe tomorrow
+- Place to permanetly place save and del buttons, with maybe some text there
+
+###### Campbell out
+
 ## Version 2.005
  
 Yes we went backwards a little bit

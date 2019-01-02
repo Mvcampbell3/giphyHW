@@ -14,9 +14,9 @@ header{
     display: none;
 }
 
-.deleteBtn{
+/* .deleteBtn{
     display: none;
-}
+} */
 
 .inputSection form{
     display: flex;
