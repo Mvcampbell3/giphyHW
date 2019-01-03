@@ -1,5 +1,17 @@
 # giphyHW
 
+##Version 2.25
+
+### Added:
+- titles to the gifs, if no title exists, makes searchTerm title
+- body background img in parralax
+- download button now loads new tab which brings up original url for gif, which is nice I guess
+
+### To Do:
+- Decide on a theme
+- Implement array to index if saved or not, make classes of the newGif from there
+- DOWNLOAD BUTTON IS DRIVING ME INSANE
+
 ## Version 27.304
 
 ### Changes:
