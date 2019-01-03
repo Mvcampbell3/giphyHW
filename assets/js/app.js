@@ -9,11 +9,12 @@ var timesPressed = 0;
 
 // Buttons everyone starts with, passed into JSON for local storage
 var myButtons = [
-    { name: "BISPING" },
-    { name: "BASEBALL" },
-    { name: "CARS" },
-    { name: "BUFFALO WINGS" },
-    { name: "TRY" },
+    { name: "JEAN-LUC PICARD" },
+    { name: "WILLIAM RIKER" },
+    { name: "DATA" },
+    { name: "WORF" },
+    { name: "GEORDI LA FORGE" },
+
 ];
 
 // Array of buttons to diplay, will change how this works
@@ -49,12 +50,24 @@ function getButtons() {
 function displayButtons() {
     // clears buttonArea html
     $(".buttonArea").html("");
-    // loops through showButton Array
+    var saveButtons = JSON.parse(localStorage.getItem("buttons"));
+
+    var names = [];
+
+    for (var i = 0; i < saveButtons.length; i++){
+        names.push(saveButtons[i].name);
+    }
+    console.log("saveButton names = " + names);
+
     for (var i = 0; i < showButtons.length; i++) {
-        // creates new button for each object, class and text defined
-        var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
-        // adds button to buttonArea html
-        $(".buttonArea").append(newBtn);
+        console.log(names.indexOf(showButtons[i]))
+        if (names.indexOf(showButtons[i].name) >= 0) {
+            var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
+            $(".buttonArea").append(newBtn);
+        } else {
+            var newBtn = $("<button>").attr("class", "btn btn-secondary gifName").text(showButtons[i].name);
+            $(".buttonArea").append(newBtn);
+        }
     }
 }
 
@@ -62,29 +75,32 @@ function displayButtons() {
 $(".submitBtn").on("click", function (event) {
     // Stops pafe reload
     event.preventDefault();
-    var nameIn = $("#wordSearch").val().trim();
-    // Set new object, this is for if they want to save searchTerm to local storage
-    var newItem = {
-        name: nameIn.toUpperCase(),
-    };
+    if ($("#wordSearch").val() != ""){
+        var nameIn = $("#wordSearch").val().trim();
+        // Set new object, this is for if they want to save searchTerm to local storage
+        var newItem = {
+            name: nameIn.toUpperCase(),
+        };
 
-    // Need to check if there is already a button for this
-    var names = [];
+        // Need to check if there is already a button for this
+        var names = [];
 
-    for (var i = 0; i < showButtons.length; i++) {
-        names.push(showButtons[i].name);
+        for (var i = 0; i < showButtons.length; i++) {
+            names.push(showButtons[i].name);
+        }
+
+        if (names.indexOf(newItem.name) === -1) {
+            // add to showButtons array
+            showButtons.push(newItem);
+            // put buttons in buttonArea
+            displayButtons();
+            // clear text from input
+            $("#wordSearch").val("");
+        } else {
+            console.log("already a button");
+        }
     }
-
-    if (names.indexOf(newItem.name) === -1) {
-        // add to showButtons array
-        showButtons.push(newItem);
-        // put buttons in buttonArea
-        displayButtons();
-        // clear text from input
-        $("#wordSearch").val("");
-    } else {
-        console.log("already a button");
-    }
+    
 
 });
 
@@ -102,13 +118,13 @@ $(".deleteBtn").on("click", function () {
     // updates buttonArea
     displayButtons();
     // hides the save button
-    $(".saveBtn").hide();
+    $(".saveBtn").fadeOut();
     // runs function to remove from local storage
     checkSavedDelete();
     // clear gifs from screen
     $(".outputArea").html("");
-    $(".mainTitle").text("Pick a Gif!");
-    $(".deleteBtn").hide();
+    $(".mainTitle").text("Star Trek: The Next Generation GIFS");
+    $(".deleteBtn").fadeOut();
 });
 
 // removes button from local storage
@@ -156,8 +172,10 @@ $(".saveBtn").on("click", function () {
     }
     // reset the buttons list in local storage
     localStorage.setItem("buttons", JSON.stringify(saveButtons));
+    displayButtons();
+
     // hide saveBtn from window
-    $(".saveBtn").hide();
+    $(".saveBtn").fadeOut();
 })
 
 // Very simmilar to previous, this one checks if saveBtn should be shown or hidden
@@ -168,11 +186,11 @@ function whichButton() {
         names.push(saveButtons[i].name);
     }
     if (names.indexOf(searchTerm) === -1) {
-        $(".saveBtn").show();
+        $(".saveBtn").fadeIn();
 
     } else {
         console.log("already saved");
-        $(".saveBtn").hide();
+        $(".saveBtn").fadeOut();
     }
     localStorage.setItem("buttons", JSON.stringify(saveButtons));
 }
@@ -181,7 +199,7 @@ function whichButton() {
 
 // What happends when you click the buttons that have search names in them
 $(".buttonArea").on("click", ".gifName", function () {
-    $(".deleteBtn").show();
+    $(".deleteBtn").fadeIn();
     // store previous search
     lastButton = searchTerm;
     // update search to pressed button text

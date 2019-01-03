@@ -1,6 +1,17 @@
 # giphyHW
 
-##Version 2.25
+## Version 2.50
+
+### Added:
+- Star Trek TNG theme
+- buttons are assigned classes based on if saved to local storage or not
+
+### Soon to be made so:
+- create own button styles and class, not bootstrap
+- pick the right background
+- think about how you want gifs to appear in window, ie: animations?
+
+## Version 2.25
 
 ### Added:
 - titles to the gifs, if no title exists, makes searchTerm title
