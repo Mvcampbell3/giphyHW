@@ -224,15 +224,17 @@ function ajaxCall() {
         for (var i = 0; i < response.data.length; i++) {
             // create new div that has responsive bootstrap classes
             var newGif = $("<div>").attr("class", "col-lg-3 col-md-4 col-sm-6 col-12 outputCard");
-
-
-            var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
-                .html("<h6 class='gifTitle'>"+response.data[i].title + "</h6>");
-
+            // check if gif has a title
             if (response.data[i].title == "") {
-                $(".gifTitle").text(searchTerm.toLowerCase());
+                // if empty, make searchTerm title
+                var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
+                .html("<h6 class='gifTitle'>"+ searchTerm.toLowerCase() + "</h6>");
+            } else {
+                // else use gif title
+                var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
+                .html("<h6 class='gifTitle'>"+ response.data[i].title + "</h6>");
             }
-
+            // add title to newGif
             newGif.append(gifTitleHolder);
 
             // create new img with class of gifPic, css sets height & width
