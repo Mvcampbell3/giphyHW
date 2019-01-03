@@ -224,6 +224,17 @@ function ajaxCall() {
         for (var i = 0; i < response.data.length; i++) {
             // create new div that has responsive bootstrap classes
             var newGif = $("<div>").attr("class", "col-lg-3 col-md-4 col-sm-6 col-12 outputCard");
+
+
+            var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
+                .html("<h6 class='gifTitle'>"+response.data[i].title + "</h6>");
+
+            if (response.data[i].title == "") {
+                $(".gifTitle").text(searchTerm.toLowerCase());
+            }
+
+            newGif.append(gifTitleHolder);
+
             // create new img with class of gifPic, css sets height & width
             var gifImg = $("<img>").attr("class", "gifPic")
                 // set starting src to still from data.images
@@ -238,7 +249,11 @@ function ajaxCall() {
             // create button with text og gif rating, might change to badge with different padding
             var rating = $("<button>").attr("class", "btn btn-light").text("Rating: " + response.data[i].rating);
             // create button for downloading gif, need to change to <a>
-            var downBtn = $("<button>").attr("class", "btn btn-success downBtn").text("Download");
+            var downBtn = $("<a>").attr("class", "btn btn-success downBtn").text("Download")
+                .attr("href", response.data[i].images.original.url)
+                .attr("download", "").attr("target", "_blank");
+
+
             // add img to newGif div
             newGif.append(gifImg);
             // add rating and download btn to infoBox div
