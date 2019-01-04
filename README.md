@@ -1,5 +1,17 @@
 # giphyHW
 
+## Version 3.14
+
+### Pi Edition:
+- Won't add gifs to favs if the url is the same as one in saves
+- favorite button fades out on outputArea after successful add to favs
+- made a favs modal, drops down on button press
+- output area for gifs now slides down after first search
+
+### Still to come:
+- Styling time, decide theme to keep
+
+
 ## Version 3.00
 
 ### Added:
@@ -18,7 +30,6 @@
 - buttons are assigned classes based on if saved to local storage or not
 
 ### Soon to be made so:
-- create own button styles and class, not bootstrap
 - pick the right background
 - think about how you want gifs to appear in window, ie: animations?
 
