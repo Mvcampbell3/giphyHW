@@ -26,9 +26,9 @@ body{
     display: none;
 }
 
-.inputSection{
+/* .inputSection{
     background-color: #111;
-}
+} */
 
 .inputSection form{
     display: flex;
