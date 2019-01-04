@@ -1,8 +1,13 @@
-body{
+/* body{
     color: white;
     background:url(../images/background2.jpeg);
     background-size: cover;
     background-attachment: fixed;
+} */
+
+body{
+    color: white;
+    background-color: #222;
 }
 
 .mainTitle{
@@ -90,6 +95,11 @@ body{
     width: 100px;
 }
 
+.favDelBtn{
+    width: 100px;
+    margin: auto;
+}
+
 .infoBox{
     display: flex;
     justify-content: space-between;
@@ -97,6 +107,12 @@ body{
     margin: 3px auto 0 auto;
 
 }
+
+.favorites{
+    border-left: 5px white solid;
+    min-height: 100vh;
+}
+
 
 @media (max-width: 550px) {
     .inputSection form{

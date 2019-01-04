@@ -17,14 +17,29 @@ var myButtons = [
 
 ];
 
+function FavGif(still, gif, title) {
+    this.still = still;
+    this.gif = gif;
+    this.title = title;
+    this.flipped = false;
+}
+
+// {/* <img class="gifPic" src="https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy.gif" data-still="https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy_s.gif" data-gif="https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy.gif"></img> */}
+
+var myFav = new FavGif("https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy_s.gif", "https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy.gif", "Try");
+
 // Array of buttons to diplay, will change how this works
 var showButtons = [];
+
+var favArray = [];
 
 // --------------End Global Vars---------------------//
 
 
 // Gets the buttons saved from local storage or creates local storage, then runs displayButtons function
 function getButtons() {
+
+    getFavoriteGifs();
     // checks if local storage has my list or if my list has zero items inside
     if (JSON.parse(localStorage.getItem("buttons")) === null || JSON.parse(localStorage.getItem("buttons")).length < 1) {
         // May want to get rid of the or check, if they don't want my buttons then so be it.
@@ -45,6 +60,39 @@ function getButtons() {
     }
 }
 
+function getFavoriteGifs() {
+    if (JSON.parse(localStorage.getItem("favoriteGIFS")) === null || JSON.parse(localStorage.getItem("favoriteGIFS")).length < 1) {
+        favArray.push(myFav);
+        console.log(favArray);
+        localStorage.setItem("favoriteGIFS", JSON.stringify(favArray));
+        showFavGifs();
+    } else {
+        console.log("favoriteGIFS exist in local storage");
+        showFavGifs();
+    }
+}
+
+function showFavGifs() {
+    $(".favOutArea").html("");
+    var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
+    console.log(savedGifs);
+    for (var i = 0; i < savedGifs.length; i++) {
+        var newItem = $("<div>").attr("class", "col-12 outputCard");
+        var title = $("<h6>").text(savedGifs[i].title).attr("class", "text-center");
+        var gifImg = $("<img>").attr("class", "gifPic")
+            .attr("src", savedGifs[i].still)
+            .prop("data-flipped", false)
+            .attr("data-still", savedGifs[i].still)
+            .attr("data-gif", savedGifs[i].gif);
+        var delBtn = $("<button>").attr("class", "btn btn-danger favDelBtn").text("Delete")
+            .attr("data-still", savedGifs[i].still);
+        var box = $("<div>").attr("class", "infoBox");
+        box.append(delBtn);
+        newItem.append(title).append(gifImg).append(box);
+        $(".favOutArea").append(newItem);
+    }
+}
+
 // Will change how this works, right now every button has same class
 // I want buttons that are saved to local storage to have a class of btn-something different than primary
 function displayButtons() {
@@ -54,13 +102,13 @@ function displayButtons() {
 
     var names = [];
 
-    for (var i = 0; i < saveButtons.length; i++){
+    for (var i = 0; i < saveButtons.length; i++) {
         names.push(saveButtons[i].name);
     }
     console.log("saveButton names = " + names);
 
     for (var i = 0; i < showButtons.length; i++) {
-        console.log(names.indexOf(showButtons[i]))
+        console.log(names.indexOf(showButtons[i].name))
         if (names.indexOf(showButtons[i].name) >= 0) {
             var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
             $(".buttonArea").append(newBtn);
@@ -75,7 +123,7 @@ function displayButtons() {
 $(".submitBtn").on("click", function (event) {
     // Stops pafe reload
     event.preventDefault();
-    if ($("#wordSearch").val() != ""){
+    if ($("#wordSearch").val() != "") {
         var nameIn = $("#wordSearch").val().trim();
         // Set new object, this is for if they want to save searchTerm to local storage
         var newItem = {
@@ -100,7 +148,7 @@ $(".submitBtn").on("click", function (event) {
             console.log("already a button");
         }
     }
-    
+
 
 });
 
@@ -241,16 +289,16 @@ function ajaxCall() {
         // loop through response.data, for each returned do:
         for (var i = 0; i < response.data.length; i++) {
             // create new div that has responsive bootstrap classes
-            var newGif = $("<div>").attr("class", "col-lg-3 col-md-4 col-sm-6 col-12 outputCard");
+            var newGif = $("<div>").attr("class", "col-lg-4 col-md-6 col-sm-6 col-12 outputCard");
             // check if gif has a title
             if (response.data[i].title == "") {
                 // if empty, make searchTerm title
                 var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
-                .html("<h6 class='gifTitle'>"+ searchTerm.toLowerCase() + "</h6>");
+                    .html("<h6 class='gifTitle'>" + searchTerm.toLowerCase() + "</h6>");
             } else {
                 // else use gif title
                 var gifTitleHolder = $("<div>").attr("class", "text-center gifTitleHolder")
-                .html("<h6 class='gifTitle'>"+ response.data[i].title + "</h6>");
+                    .html("<h6 class='gifTitle'>" + response.data[i].title + "</h6>");
             }
             // add title to newGif
             newGif.append(gifTitleHolder);
@@ -269,15 +317,22 @@ function ajaxCall() {
             // create button with text og gif rating, might change to badge with different padding
             var rating = $("<button>").attr("class", "btn btn-light").text("Rating: " + response.data[i].rating);
             // create button for downloading gif, need to change to <a>
-            var downBtn = $("<a>").attr("class", "btn btn-success downBtn").text("Download")
-                .attr("href", response.data[i].images.original.url)
-                .attr("download", "").attr("target", "_blank");
+            // var downBtn = $("<a>").attr("class", "btn btn-success downBtn").text("Download")
+            //     .attr("href", response.data[i].images.original.url)
+            //     .attr("download", "").attr("target", "_blank");
+            // couldn't get that to work
+            var favBtn = $("<button>").attr("class", "btn btn-success favBtn").text("Favorite")
+                .prop("data-flipped", false)
+                .attr("data-name", response.data[i].title)
+                // store data for both still img url and gif url
+                .attr("data-still", response.data[i].images.original_still.url)
+                .attr("data-gif", response.data[i].images.original.url);
 
 
             // add img to newGif div
             newGif.append(gifImg);
             // add rating and download btn to infoBox div
-            infoBox.append(rating).append(downBtn);
+            infoBox.append(rating).append(favBtn);
             // add infoBox div to newGif div
             newGif.append(infoBox);
             // check if this was first time searchTerm button was pressed
@@ -306,5 +361,49 @@ $(".outputArea").on("click", ".gifPic", function () {
         console.log("would flip back to still");
         $(this).prop("data-flipped", false);
         $(this).attr("src", $(this).attr("data-still"));
+    }
+});
+
+$(".favOutArea").on("click", ".gifPic", function () {
+    console.log($(this).prop("data-flipped"));
+    console.log(typeof $(this).prop("data-flipped"));
+    // If current flipped state is false, switch to gif url and set state to true
+    if (!$(this).prop("data-flipped")) {
+        console.log("would switch to moving gif");
+        $(this).prop("data-flipped", true);
+        $(this).attr("src", $(this).attr("data-gif"));
+    } else {
+        // If current flipped state is true, switch to still url and set state to false
+        console.log("would flip back to still");
+        $(this).prop("data-flipped", false);
+        $(this).attr("src", $(this).attr("data-still"));
+    }
+});
+
+$(".outputArea").on("click", ".favBtn", function () {
+    var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
+
+    console.log(savedGifs);
+
+    var addFav = new FavGif($(this).attr("data-still"), $(this).attr("data-gif"), $(this).attr("data-name"));
+
+    console.log(addFav);
+
+    savedGifs.push(addFav);
+
+    localStorage.setItem("favoriteGIFS", JSON.stringify(savedGifs));
+
+    showFavGifs();
+});
+
+$(".favOutArea").on("click", ".favDelBtn", function () {
+    var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
+
+    for (var i = 0; i < savedGifs.length; i++) {
+        if ($(this).attr("data-still") === savedGifs[i].still) {
+            savedGifs.splice(i, 1);
+            localStorage.setItem("favoriteGIFS", JSON.stringify(savedGifs));
+            showFavGifs();
+        }
     }
 });

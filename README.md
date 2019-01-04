@@ -1,5 +1,16 @@
 # giphyHW
 
+## Version 3.00
+
+### Added:
+- Ability to save favorite gifs
+- section to display favorite gifs, might change to new page or even modal
+
+### Still to come:
+- check to see if already in favs
+
+
+
 ## Version 2.50
 
 ### Added:
