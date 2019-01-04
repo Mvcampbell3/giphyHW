@@ -15,6 +15,7 @@ body{
     height: 38px;
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .saveBtn{
@@ -52,7 +53,7 @@ body{
 .buttonArea{
     width: fit-content;
     max-width: 100%;
-    margin: 30px auto;
+    margin: 10px auto;
 }
 
 .gifName{
