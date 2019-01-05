@@ -1,5 +1,26 @@
 # giphyHW
 
+## Version 3.141592
+
+### More accurate Pi Edition:
+- Funtionality
+    - loads space theme and space themed buttons, favorite gifs
+    - add buttons to button list, can save buttons from button list
+    - remove buttons from list, will delete from both list and local storage
+    - favorite button on gif will add gif to favorites tab
+    - show favorites button will slide down favorite gif area, leave favorites to go back
+
+### Changes
+
+- scrapped star trek theme in favor of space theme
+- changed starting buttons and fav gifs
+- deleted unused images
+- added favicon
+- misc. style edits in background and gifs
+- cleaned up code a bit
+
+##Expected to be release version
+
 ## Version 3.14
 
 ### Pi Edition:

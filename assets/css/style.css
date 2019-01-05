@@ -9,6 +9,8 @@ body{
     overflow-x: hidden;
 }
 
+/* -------------------Input Area and Top */
+
 .mainTitle{
     width: 100%;
     text-align: center;
@@ -79,6 +81,8 @@ body{
     margin: 3px;
 }
 
+/* --------------------Gif-OutputArea------------------------ */
+
 .outputArea{
     display: none;
 }
@@ -94,7 +98,7 @@ body{
     margin: auto;
     height: 225px;
     width: 225px;
-    border: 1px white solid;
+    border: 1px #222 solid;
 
 }
 
@@ -104,7 +108,7 @@ body{
     margin: auto;
     overflow: hidden;
     background-color: #333;
-    border: 1px white solid;
+    border: 1px #222 solid;
     border-bottom: none;
 }
 
@@ -115,13 +119,15 @@ body{
     margin: 0 auto;
     background-color: #333;
     padding: 2px;
-    border: 1px white solid;
+    border: 1px #222 solid;
     border-top: none;
 }
 
 .fixPad{
     padding: 9.25px 0 11.25px 0;;
 }
+
+/* ---------------------Favorites Area-------------------------------- */
 
 .favorites{
     position: absolute;
@@ -147,6 +153,7 @@ body{
     margin: auto;
 }
 
+/* ----------------Media Queries-------------------------- */
 
 @media (max-width: 550px) {
     .inputSection form{
@@ -167,12 +174,4 @@ body{
     .submitBtn{
         margin: 5px 0;
     }
-
-    .outputArea{
-        background:url(../images/background3.jpeg);
-        background-size: cover;
-        background-attachment: fixed;
-        display: none;
-    }
-
 }

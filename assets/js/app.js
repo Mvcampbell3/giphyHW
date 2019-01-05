@@ -6,9 +6,6 @@ var lastButton;
 var searchTerm = "not used yet";
 // how many times same search was made in a row
 var timesPressed = 0;
-
-var lower = false;
-
 // Buttons everyone starts with, passed into JSON for local storage
 var myButtons = [
     { name: "PLANET" },
@@ -21,7 +18,7 @@ var myButtons = [
     { name: "HUBBLE" },
     { name: "SOLAR SYSTEM" },
 ];
-
+// Constructor for new FavGifs
 function FavGif(still, gif, title) {
     this.still = still;
     this.gif = gif;
@@ -29,12 +26,15 @@ function FavGif(still, gif, title) {
     this.flipped = false;
 };
 
-var myFav = new FavGif("https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy_s.gif", "https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy.gif", "Try");
+// FavGif vars
+var tryFav = new FavGif("https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy_s.gif", "https://media2.giphy.com/media/XdreKrQI1LjcQ/giphy.gif", "Try");
+
+var shuttleFav = new FavGif("https://media2.giphy.com/media/xiN0BXMETVsx0AxTXt/giphy_s.gif", "https://media2.giphy.com/media/xiN0BXMETVsx0AxTXt/giphy.gif", "lift off space GIF by US Naitonal Achives");
 
 // Array of buttons to diplay, will change how this works
 var showButtons = [];
 
-var favArray = [];
+var favArray = [tryFav, shuttleFav];
 
 // ------------------------End Global Vars---------------------//
 
@@ -65,8 +65,9 @@ function getButtons() {
 }
 
 function getFavoriteGifs() {
+    // check if there is localStorage items or if the item has anything in it
     if (JSON.parse(localStorage.getItem("favoriteGIFS")) === null || JSON.parse(localStorage.getItem("favoriteGIFS")).length < 1) {
-        favArray.push(myFav);
+        // if not, set favArray to local storage
         console.log(favArray);
         localStorage.setItem("favoriteGIFS", JSON.stringify(favArray));
         showFavGifs();
@@ -77,9 +78,12 @@ function getFavoriteGifs() {
 }
 
 function showFavGifs() {
+    // clear favOutArea
     $(".favOutArea").html("");
+    // grab saved gifs from local storage
     var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
     console.log(savedGifs);
+    // display gifs to page, very similar to regular display Gifs function
     for (var i = 0; i < savedGifs.length; i++) {
         var newItem = $("<div>").attr("class", "col-lg-3 col-md-4 col-sm-6 col-12 outputCard");
         var title = $("<h6>").text(savedGifs[i].title).attr("class", "text-center");
@@ -97,12 +101,12 @@ function showFavGifs() {
     }
 }
 
-// I want buttons that are saved to local storage to have a class of btn-something different than primary
+// Get buttons from local storage, get buttons added but not saved,  and load all to page
 function displayButtons() {
     // clears buttonArea html
     $(".buttonArea").html("");
     var saveButtons = JSON.parse(localStorage.getItem("buttons"));
-
+    // this is for setting up check used to see if buttons are saved to local storage or not
     var names = [];
 
     for (var i = 0; i < saveButtons.length; i++) {
@@ -112,10 +116,13 @@ function displayButtons() {
 
     for (var i = 0; i < showButtons.length; i++) {
         console.log(names.indexOf(showButtons[i].name))
+        // check if buttons are in local storage array
         if (names.indexOf(showButtons[i].name) >= 0) {
+            // this is the class I want for saved
             var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
             $(".buttonArea").append(newBtn);
         } else {
+            // this is the class I want for unsaved
             var newBtn = $("<button>").attr("class", "btn btn-outline-warning gifName").text(showButtons[i].name);
             $(".buttonArea").append(newBtn);
         }
@@ -127,7 +134,7 @@ function checkSavedDelete() {
     // grab array from local storage
     var saveButtons = JSON.parse(localStorage.getItem("buttons"));
     console.log(saveButtons);
-    // same thing as above function, find object to delete
+    // same thing as above deleteBtn.on("click") function, find object to delete
     for (var i = 0; i < saveButtons.length; i++) {
         if (searchTerm === saveButtons[i].name) {
             console.log(i + " index at want to delete");
@@ -138,7 +145,7 @@ function checkSavedDelete() {
     localStorage.setItem("buttons", JSON.stringify(saveButtons));
 }
 
-// Very simmilar to previous, this one checks if saveBtn should be shown or hidden
+// Checks if saveBtn should be shown or hidden based on if in local storage or not
 function whichButton() {
     var saveButtons = JSON.parse(localStorage.getItem("buttons"));
     var names = [];
@@ -171,7 +178,6 @@ function ajaxCall() {
         method: "GET"
     }).then(function (response) {
         console.log(response);
-        
         // loop through response.data, for each returned do:
         for (var i = 0; i < response.data.length; i++) {
             // create new div that has responsive bootstrap classes
@@ -231,11 +237,8 @@ function ajaxCall() {
             } else {
                 $(".outputArea").append(newGif);
             }
+            $(".outputArea").show();
         };
-        if (!lower) {
-            $(".outputArea").slideDown();
-            lower = true;
-        }
     });
 };
 // -------------------------End Functions -----------------------------//
@@ -243,7 +246,7 @@ function ajaxCall() {
 // -----------------------Event Listeners and Functions-----------------//
 
 // Change from still to gif urls and back when img clicked
-$(".outputArea").on("click", ".gifPic", function () {
+$("body").on("click", ".gifPic", function () {
     console.log($(this).prop("data-flipped"));
     console.log(typeof $(this).prop("data-flipped"));
     // If current flipped state is false, switch to gif url and set state to true
@@ -258,23 +261,7 @@ $(".outputArea").on("click", ".gifPic", function () {
         $(this).attr("src", $(this).attr("data-still"));
     }
 });
-
-$(".favOutArea").on("click", ".gifPic", function () {
-    console.log($(this).prop("data-flipped"));
-    console.log(typeof $(this).prop("data-flipped"));
-    // If current flipped state is false, switch to gif url and set state to true
-    if (!$(this).prop("data-flipped")) {
-        console.log("would switch to moving gif");
-        $(this).prop("data-flipped", true);
-        $(this).attr("src", $(this).attr("data-gif"));
-    } else {
-        // If current flipped state is true, switch to still url and set state to false
-        console.log("would flip back to still");
-        $(this).prop("data-flipped", false);
-        $(this).attr("src", $(this).attr("data-still"));
-    }
-});
-
+// Add gifs info from button to favGif local storage
 $(".outputArea").on("click", ".favBtn", function () {
     var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
 
@@ -296,7 +283,7 @@ $(".outputArea").on("click", ".favBtn", function () {
         console.log("already in favorites");
     }
 });
-
+// delete from favGif local storage and reset local storage
 $(".favOutArea").on("click", ".favDelBtn", function () {
     var savedGifs = JSON.parse(localStorage.getItem("favoriteGIFS"));
 
@@ -330,11 +317,11 @@ $(".buttonArea").on("click", ".gifName", function () {
     } else {
         // if false, reset timesPressed to zero, clear outputArea html
         timesPressed = 0;
-        $(".outputArea").html("");
+        $(".outputArea").html("")
         ajaxCall();
     }
 });
-
+// adding buttons to local storage from save button in top
 $(".saveBtn").on("click", function () {
     // create object
     var newItem = {
@@ -422,7 +409,7 @@ $(".favModalBtn").on("click", function () {
     $(".favorites").slideDown();
     $(".outputArea").fadeOut();
 });
-
+// Close Favorites Modal
 $(".closeModal").on("click", function () {
     $(".favorites").slideUp();
     $(".outputArea").fadeIn();
