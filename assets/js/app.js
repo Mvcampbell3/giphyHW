@@ -16,6 +16,9 @@ var myButtons = [
     { name: "DATA" },
     { name: "WORF" },
     { name: "GEORDI LA FORGE" },
+    { name: "ENTERPRISE" },
+    { name: "BORG" },
+    
 
 ];
 
