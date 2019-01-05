@@ -11,15 +11,15 @@ var lower = false;
 
 // Buttons everyone starts with, passed into JSON for local storage
 var myButtons = [
-    { name: "JEAN-LUC PICARD" },
-    { name: "WILLIAM RIKER" },
-    { name: "DATA" },
-    { name: "WORF" },
-    { name: "GEORDI LA FORGE" },
-    { name: "ENTERPRISE" },
-    { name: "BORG" },
-    
-
+    { name: "PLANET" },
+    { name: "SPACE SHUTTLE" },
+    { name: "APOLLO" },
+    { name: "MARS" },
+    { name: "MOON" },
+    { name: "GALAXY" },
+    { name: "UNIVERSE" },
+    { name: "HUBBLE" },
+    { name: "SOLAR SYSTEM" },
 ];
 
 function FavGif(still, gif, title) {
@@ -116,7 +116,7 @@ function displayButtons() {
             var newBtn = $("<button>").attr("class", "btn btn-primary gifName").text(showButtons[i].name);
             $(".buttonArea").append(newBtn);
         } else {
-            var newBtn = $("<button>").attr("class", "btn btn-secondary gifName").text(showButtons[i].name);
+            var newBtn = $("<button>").attr("class", "btn btn-outline-warning gifName").text(showButtons[i].name);
             $(".buttonArea").append(newBtn);
         }
     }
@@ -413,7 +413,7 @@ $(".deleteBtn").on("click", function () {
     checkSavedDelete();
     // clear gifs from screen
     $(".outputArea").html("");
-    $(".mainTitle").text("Star Trek: The Next Generation GIFS");
+    $(".mainTitle").text("Space GIF Telescope");
     $(".deleteBtn").fadeOut();
 });
 
